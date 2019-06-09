@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <title>A Blinking Cursor</title>
+</head>
+<body>
+    <div id="app">
+        <h1>A Blinking Cursor</h1>
+        <h3>Welcome to the landing page for the game "A Blinking Cursor"</h3>
+        <!-- Bogus stat to cause mass hysteria -->
+        <p>Days until release: {{randomNumber()}}</p>
+    </div>
+<!-- Following tut with function copied from stack overflow for now ... -->
+    <script>
+        new Vue({
+            el: '#app',
+            methods: {
+                randomNumber: function(){
+                    //Return a number from 11-110.
+                    //
+                    //Question to be answered:
+                    //Does Math.random ever return 0?
+                    return Math.ceil(Math.random()*100) + 10;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
