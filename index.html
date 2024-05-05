@@ -1,87 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/master.css">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-
     <title>A Blinking Cursor</title>
-</head>
-<body>
-    <div id="app">
-        <h1>A Blinking Cursor</h1>
-        <h3>Welcome to the landing page for the game "A Blinking Cursor"</h3>
-        <!-- Bogus stat to cause mass hysteria -->
-        <p>Days until release: {{releaseDate}}</p>
-        <input type="button" value="Refresh" v-on:click="changeRelease">
-        <hr>
-        <h3>Preview:</h3>
-        <p>
-            Money: {{scoreMoney}}<br>
-            Characters: {{scoreCharacters}}<br>
-            Lines: {{scoreLines}}<br>
-            Functions: {{scoreFunctions}}<br>
-            Classes: {{scoreClasses}}<br>
-            Packages: {{scorePackages}}<br>
-            Units: {{scoreUnits}}<br>
-            Products: {{scoreProducts}}<br>
-            Cred: {{scoreCred}}
-        </p>
-        <input id="buttonTypeCharacters" type="button" value="Type" 
-            v-on:click="clickButtonType()" 
-            v-bind:class="[buttonTypeClass, buttonTypeIsActive ? classButtonTypeActive : classButtonTypeDisabled]">
-
-    </div>
-<!-- Following tut with function copied from stack overflow for now ... -->
-    <script>
-        new Vue({
-            el: '#app',
-            data: {
-                releaseDate: 9,
-                scoreMoney: 1000,
-                scoreCharacters: 0,
-                scoreLines: 0,
-                scoreFunctions: 0,
-                scoreClasses: 0,
-                scorePackages: 0,
-                scoreUnits: 0,
-                scoreProducts: 0,
-                scoreCred: 0,
-                cooldownButtonType: 30000,
-                buttonTypeClass: "btn btn-primary",
-                buttonTypeIsActive: true,
-                classButtonTypeActive: "active",
-                classButtonTypeDisabled: "disabled"
-            },
-            methods: {
-                changeRelease: function(){
-                    //Change release date to a number from 10-110.
-                    this.releaseDate = Math.ceil(Math.random()*100) + 10;
-                },
-                addCharacters: function(){
-                    //Add characters to total from 2-15
-                    this.scoreCharacters += Math.ceil(Math.random()*15) + 2;
-                },
-                clickButtonType: function(){
-                    if(!this.buttonTypeIsActive){
-                        return;
-                    }
-                    //Disable button
-                    this.buttonTypeIsActive = false;
-                    //Add characters to score
-                    this.addCharacters();
-                    //Timer to enable button
-                    setTimeout(() => this.buttonTypeIsActive = true, this.cooldownButtonType);
-                }
-                
-            }
-        });
-    </script>
-</body>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
