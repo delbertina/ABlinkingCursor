@@ -1,38 +1,40 @@
 <script setup lang="ts">
-let releaseDate = 9
-let scoreMoney = 1000
-let scoreCharacters = 0
-let scoreLines = 0
-let scoreFunctions = 0
-let scoreClasses = 0
-let scorePackages = 0
-let scoreUnits = 0
-let scoreProducts = 0
-let scoreCred = 0
-let cooldownButtonType = 30000
+import { ref } from 'vue'
+
+let releaseDate = ref(9)
+let scoreMoney = ref(1000)
+let scoreCharacters = ref(0)
+let scoreLines = ref(0)
+let scoreFunctions = ref(0)
+let scoreClasses = ref(0)
+let scorePackages = ref(0)
+let scoreUnits = ref(0)
+let scoreProducts = ref(0)
+let scoreCred = ref(0)
+let cooldownButtonType = 5000
 let buttonTypeClass = 'btn btn-primary'
-let buttonTypeIsActive = true
+let buttonTypeIsActive = ref(true)
 let classButtonTypeActive = 'active'
 let classButtonTypeDisabled = 'disabled'
 
 const changeRelease = () => {
   //Change release date to a number from 10-110.
-  releaseDate = Math.ceil(Math.random() * 100) + 10
+  releaseDate.value = Math.ceil(Math.random() * 100) + 10
 }
 const addCharacters = () => {
   //Add characters to total from 2-15
-  scoreCharacters += Math.ceil(Math.random() * 15) + 2
+  scoreCharacters.value += Math.ceil(Math.random() * 15) + 2
 }
 const clickButtonType = () => {
-  if (!buttonTypeIsActive) {
+  if (!buttonTypeIsActive.value) {
     return
   }
   //Disable button
-  buttonTypeIsActive = false
+  buttonTypeIsActive.value = false
   //Add characters to score
   addCharacters()
   //Timer to enable button
-  setTimeout(() => (buttonTypeIsActive = true), cooldownButtonType)
+  setTimeout(() => (buttonTypeIsActive.value = true), cooldownButtonType)
 }
 </script>
 
@@ -51,9 +53,8 @@ const clickButtonType = () => {
   </header>
 
   <RouterView /> -->
-  <div>
+  <div class="app-wrapper">
     <h1>A Blinking Cursor</h1>
-    <h3>Welcome to the landing page for the game "A Blinking Cursor"</h3>
     <!-- Bogus stat to cause mass hysteria -->
     <p>Days until release: {{ releaseDate }}</p>
     <button type="button" class="btn btn-primary" v-on:click="changeRelease">Refresh</button>
@@ -74,7 +75,8 @@ const clickButtonType = () => {
       type="button"
       class="btn btn-primary"
       id="buttonTypeCharacters"
-      v-on:click="clickButtonType"
+      :disabled="!buttonTypeIsActive"
+      v-on:click="() => clickButtonType()"
     >
       <!-- v-bind:class="[
         buttonTypeClass,
@@ -87,6 +89,9 @@ const clickButtonType = () => {
 </template>
 
 <style scoped>
+.app-wrapper {
+  margin: 0 10vw;
+}
 /* header {
   line-height: 1.5;
   max-height: 100vh;
