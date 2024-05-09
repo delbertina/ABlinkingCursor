@@ -11,11 +11,8 @@ let scorePackages = ref(0)
 let scoreUnits = ref(0)
 let scoreProducts = ref(0)
 let scoreCred = ref(0)
-let cooldownButtonType = 5000
-let buttonTypeClass = 'btn btn-primary'
-let buttonTypeIsActive = ref(true)
-let classButtonTypeActive = 'active'
-let classButtonTypeDisabled = 'disabled'
+const cooldownAddChar = 5000
+let isAddCharDisabled = ref(false)
 
 const changeRelease = () => {
   //Change release date to a number from 10-110.
@@ -26,36 +23,21 @@ const addCharacters = () => {
   scoreCharacters.value += Math.ceil(Math.random() * 15) + 2
 }
 const clickButtonType = () => {
-  if (!buttonTypeIsActive.value) {
+  if (isAddCharDisabled.value) {
     return
   }
   //Disable button
-  buttonTypeIsActive.value = false
+  isAddCharDisabled.value = true
   //Add characters to score
   addCharacters()
   //Timer to enable button
-  setTimeout(() => (buttonTypeIsActive.value = true), cooldownButtonType)
+  setTimeout(() => (isAddCharDisabled.value = false), cooldownAddChar)
 }
 </script>
 
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView /> -->
   <div class="app-wrapper">
     <h1>A Blinking Cursor</h1>
-    <!-- Bogus stat to cause mass hysteria -->
     <p>Days until release: {{ releaseDate }}</p>
     <button type="button" class="btn btn-primary" v-on:click="changeRelease">Refresh</button>
     <hr />
@@ -75,14 +57,9 @@ const clickButtonType = () => {
       type="button"
       class="btn btn-primary"
       id="buttonTypeCharacters"
-      :disabled="!buttonTypeIsActive"
-      v-on:click="() => clickButtonType()"
+      :disabled="isAddCharDisabled"
+      v-on:click="clickButtonType"
     >
-      <!-- v-bind:class="[
-        buttonTypeClass,
-        buttonTypeIsActive ? classButtonTypeActive : classButtonTypeDisabled
-      ]"
-    > -->
       Type
     </button>
   </div>
@@ -92,65 +69,4 @@ const clickButtonType = () => {
 .app-wrapper {
   margin: 0 10vw;
 }
-/* header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-} */
 </style>
