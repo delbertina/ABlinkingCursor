@@ -36,7 +36,7 @@ const clickButtonType = () => {
 </script>
 
 <template>
-  <h1>A Blinking Cursor</h1>
+  <h1>Generate Resources</h1>
   <p>Days until release: {{ releaseDate }}</p>
   <button type="button" class="btn btn-primary" v-on:click="changeRelease">Refresh</button>
   <hr />
