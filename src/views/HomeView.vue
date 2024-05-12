@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import './HomeView.scss'
 
 let releaseDate = ref(9)
 let scoreMoney = ref(1000)
@@ -13,6 +14,8 @@ let scoreProducts = ref(0)
 let scoreCred = ref(0)
 const cooldownAddChar = 5000
 let isAddCharDisabled = ref(false)
+const progressButtonClass = 'loading-overlay'
+let testButtonClass = ref('')
 
 const changeRelease = () => {
   //Change release date to a number from 10-110.
@@ -28,10 +31,14 @@ const clickButtonType = () => {
   }
   //Disable button
   isAddCharDisabled.value = true
+  testButtonClass.value = progressButtonClass
   //Add characters to score
   addCharacters()
   //Timer to enable button
-  setTimeout(() => (isAddCharDisabled.value = false), cooldownAddChar)
+  setTimeout(() => {
+    isAddCharDisabled.value = false
+    testButtonClass.value = ''
+  }, cooldownAddChar)
 }
 </script>
 
@@ -55,9 +62,11 @@ const clickButtonType = () => {
   <button
     type="button"
     class="btn btn-primary"
+    :class="testButtonClass"
     id="buttonTypeCharacters"
     :disabled="isAddCharDisabled"
     v-on:click="clickButtonType"
+    :style="{ '--test-square-duration': 5000 + 'ms' }"
   >
     Type
   </button>
