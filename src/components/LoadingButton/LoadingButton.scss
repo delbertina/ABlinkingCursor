@@ -2,7 +2,7 @@
   background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 50%, transparent 50%);
   background-size: 200% 100%;
   background-position: right;
-  animation: load-overlay var(--test-square-duration) linear;
+  animation: load-overlay var(--load-overlay-duration) linear;
 }
 @keyframes load-overlay {
   100% {
