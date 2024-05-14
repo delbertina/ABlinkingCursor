@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import LoadingButton from '@/components/LoadingButton/LoadingButton.vue'
+import { useScoreStore } from '@/stores/score'
+
+const score = useScoreStore()
 
 let releaseDate = ref(9)
-let scoreMoney = ref(1000)
-let scoreCharacters = ref(0)
-let scoreLines = ref(0)
-let scoreFunctions = ref(0)
-let scoreClasses = ref(0)
-let scorePackages = ref(0)
-let scoreUnits = ref(0)
-let scoreProducts = ref(0)
-let scoreCred = ref(0)
 const cooldownAddChar = 5000
 
 const changeRelease = () => {
@@ -20,7 +14,7 @@ const changeRelease = () => {
 }
 const addCharacters = () => {
   //Add characters to total from 2-15
-  scoreCharacters.value += Math.ceil(Math.random() * 15) + 2
+  score.addChars(Math.ceil(Math.random() * 15) + 2)
 }
 const clickButtonType = () => {
   addCharacters()
@@ -34,15 +28,14 @@ const clickButtonType = () => {
   <hr />
   <h3>Preview:</h3>
   <p>
-    Money: {{ scoreMoney }}<br />
-    Characters: {{ scoreCharacters }}<br />
-    Lines: {{ scoreLines }}<br />
-    Functions: {{ scoreFunctions }}<br />
-    Classes: {{ scoreClasses }}<br />
-    Packages: {{ scorePackages }}<br />
-    Units: {{ scoreUnits }}<br />
-    Products: {{ scoreProducts }}<br />
-    Cred: {{ scoreCred }}
+    Money: {{ score.money }}<br />
+    Characters: {{ score.chars }}<br />
+    Lines: {{ score.lines }}<br />
+    Functions: {{ score.funcs }}<br />
+    Classes: {{ score.classes }}<br />
+    Packages: {{ score.packs }}<br />
+    Products: {{ score.prods }}<br />
+    Cred: {{ score.cred }}
   </p>
   <LoadingButton
     :button-cooldown="cooldownAddChar"
