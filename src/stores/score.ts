@@ -3,11 +3,11 @@ import { defineStore } from 'pinia'
 export const useScoreStore = defineStore('score', {
   state: () => ({
     chars: 0,
-    lines: 0,
-    funcs: 0,
-    classes: 0,
-    packs: 0,
-    prods: 0,
+    lines: -1,
+    funcs: -1,
+    classes: -1,
+    packs: -1,
+    prods: -1,
     money: 1000,
     cred: 0
   }),
