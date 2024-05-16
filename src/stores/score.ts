@@ -18,7 +18,7 @@ export const useScoreStore = defineStore('score', {
     addLines(add: number) {
       this.lines += add
     },
-    addFuns(add: number) {
+    addFuncs(add: number) {
       this.funcs += add
     },
     addClasses(add: number) {
@@ -35,6 +35,21 @@ export const useScoreStore = defineStore('score', {
     },
     addCred(add: number) {
       this.cred += add
+    },
+    unlockLines() {
+      this.lines = 0
+    },
+    unlockFuncs() {
+      this.funcs = 0
+    },
+    unlockClasses() {
+      this.classes = 0
+    },
+    unlockPacks() {
+      this.packs = 0
+    },
+    unlockProds() {
+      this.prods = 0
     }
   }
 })

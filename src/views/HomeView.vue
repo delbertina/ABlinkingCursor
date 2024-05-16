@@ -47,7 +47,21 @@ const clickButtonType = () => {
           @on-click="clickButtonType"
         />
       </div>
-      <div class="col"><h1>Purchase Upgrades</h1></div>
+      <div class="col">
+        <h1>Purchase Upgrades</h1>
+        <div v-if="score.chars >= 30">
+          <div class="card text-white bg-secondary mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><strong>Enter Button</strong></h5>
+              <h6 class="card-subtitle mb-2 text-warning">Cost: 100 characters</h6>
+              <a href="#" class="stretched-link"></a>
+              <p class="card-text">
+                We've got enough characters, maybe we need a way to better organize them?
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="col"><h1>Event History</h1></div>
     </div>
   </div>
