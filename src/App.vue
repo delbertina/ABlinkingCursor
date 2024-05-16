@@ -20,6 +20,6 @@
 
 <style scoped>
 .app-wrapper {
-  margin: 0 10vw;
+  margin: 0 1vw;
 }
 </style>
