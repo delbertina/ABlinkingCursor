@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import LoadingButton from '@/components/LoadingButton/LoadingButton.vue'
 import { useScoreStore } from '@/stores/score'
+import UpgradeCard from '@/components/UpgradeCard/UpgradeCard.vue'
 
 const score = useScoreStore()
 
@@ -18,6 +19,9 @@ const addCharacters = () => {
 }
 const clickButtonType = () => {
   addCharacters()
+}
+const clickUpgradeCard = () => {
+  console.log('upgrade card clicked')
 }
 </script>
 
@@ -50,16 +54,13 @@ const clickButtonType = () => {
       <div class="col">
         <h1>Purchase Upgrades</h1>
         <div v-if="score.chars >= 30">
-          <div class="card text-white bg-secondary mb-3">
-            <div class="card-body">
-              <h5 class="card-title"><strong>Enter Button</strong></h5>
-              <h6 class="card-subtitle mb-2 text-warning">Cost: 100 characters</h6>
-              <a href="#" class="stretched-link"></a>
-              <p class="card-text">
-                We've got enough characters, maybe we need a way to better organize them?
-              </p>
-            </div>
-          </div>
+          <UpgradeCard
+            card-title="Enter Button"
+            :card-price="100"
+            card-price-unit="characters"
+            card-description="We've got enough characters, maybe we need a way to better organize them?"
+            @on-click="clickUpgradeCard"
+          />
         </div>
       </div>
       <div class="col"><h1>Event History</h1></div>
