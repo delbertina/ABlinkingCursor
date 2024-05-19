@@ -4,5 +4,4 @@ export interface Upgrade {
   price: number
   priceScoreId: number
   description: string
-  unlocksScoreId?: number
 }

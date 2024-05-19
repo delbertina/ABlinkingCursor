@@ -3,34 +3,42 @@ import type { Score } from '@/types/score'
 export const Scores: Array<Score> = [
   {
     id: 1,
-    name: 'Money'
+    name: 'Money',
+    value: 1000
   },
   {
     id: 2,
-    name: 'Cred'
+    name: 'Cred',
+    value: 0
   },
   {
     id: 3,
-    name: 'Characters'
+    name: 'Characters',
+    value: 0
   },
   {
     id: 4,
-    name: 'Lines'
+    name: 'Lines',
+    value: 0
   },
   {
     id: 5,
-    name: 'Functions'
+    name: 'Functions',
+    value: 0
   },
   {
     id: 6,
-    name: 'Classes'
+    name: 'Classes',
+    value: 0
   },
   {
     id: 7,
-    name: 'Packages'
+    name: 'Packages',
+    value: 0
   },
   {
     id: 8,
-    name: 'Products'
+    name: 'Products',
+    value: 0
   }
 ]

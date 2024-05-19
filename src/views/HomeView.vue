@@ -3,25 +3,18 @@ import { ref } from 'vue'
 import LoadingButton from '@/components/LoadingButton/LoadingButton.vue'
 import { useScoreStore } from '@/stores/score'
 import UpgradeCard from '@/components/UpgradeCard/UpgradeCard.vue'
+import { Scores } from '@/data/scores'
 
-const score = useScoreStore()
+const score_store = useScoreStore()
 
 let releaseDate = ref(9)
-const cooldownAddChar = 5000
 
-// const changeRelease = () => {
-//   //Change release date to a number from 10-110.
-//   releaseDate.value = Math.ceil(Math.random() * 100) + 10
-// }
-const addCharacters = () => {
-  //Add characters to total from 2-15
-  score.addChars(Math.ceil(Math.random() * 15) + 2)
+const clickScoreButton = (index: number) => {
+  // score.addScore(index, Math.ceil(Math.random() * 15) + 2)
+  score_store.doScoreAction(index)
 }
-const clickButtonType = () => {
-  addCharacters()
-}
-const clickUpgradeCard = () => {
-  console.log('upgrade card clicked')
+const clickUpgradeCard = (index: number) => {
+  score_store.purchaseUpgrade(index)
 }
 </script>
 
@@ -33,35 +26,31 @@ const clickUpgradeCard = () => {
         <p>Days until release: {{ releaseDate }}</p>
         <hr />
         <h3>Score:</h3>
-        <div>
-          <div>Money: {{ score.money }}</div>
-          <div>Cred: {{ score.cred }}</div>
-          <hr />
-          <div>Characters: {{ score.chars }}</div>
-          <div v-if="score.lines >= 0">Lines: {{ score.lines }}</div>
-          <div v-if="score.funcs >= 0">Functions: {{ score.funcs }}</div>
-          <div v-if="score.classes >= 0">Classes: {{ score.classes }}</div>
-          <div v-if="score.packs >= 0">Packages: {{ score.packs }}</div>
-          <div v-if="score.prods >= 0">Products: {{ score.prods }}</div>
+        <div v-for="score in score_store.displayScores" :key="score.id">
+          <div>{{ score.name }}: {{ score.value }}</div>
         </div>
         <hr />
-        <LoadingButton
-          :button-cooldown="cooldownAddChar"
-          button-text="Type Characters"
-          @on-click="clickButtonType"
-        />
+        <div v-for="action in score_store.displayScoreActions" :key="action.id">
+          <LoadingButton
+            :button-cooldown="action.cooldown"
+            :button-text="action.name"
+            @on-click="() => clickScoreButton(action.id)"
+          />
+        </div>
       </div>
       <div class="col">
         <h1>Purchase Upgrades</h1>
-        <div v-if="score.chars >= 30">
+        <!-- <div v-if="score.chars >= 30"> -->
+        <div v-for="upgrade in score_store.displayUpgrades" :key="upgrade.id">
           <UpgradeCard
-            card-title="Enter Button"
-            :card-price="100"
-            card-price-unit="characters"
-            card-description="We've got enough characters, maybe we need a way to better organize them?"
-            @on-click="clickUpgradeCard"
+            :card-title="upgrade.name"
+            :card-price="upgrade.price"
+            :card-price-unit="Scores.find((item) => item.id === upgrade.priceScoreId)?.name ?? ''"
+            :card-description="upgrade.description"
+            @on-click="() => clickUpgradeCard(upgrade.id)"
           />
         </div>
+        <!-- </div> -->
       </div>
       <div class="col"><h1>Event History</h1></div>
     </div>

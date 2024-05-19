@@ -6,7 +6,6 @@ export const Upgrades: Array<Upgrade> = [
     name: 'Enter Button',
     price: 100,
     priceScoreId: 3,
-    description: "We've got enough characters, maybe we need a way to better organize them?",
-    unlocksScoreId: 4
+    description: "We've got enough characters, maybe we need a way to better organize them?"
   }
 ]

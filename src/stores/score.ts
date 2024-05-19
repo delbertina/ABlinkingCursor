@@ -1,55 +1,81 @@
+import { ScoreActions } from '@/data/score_action'
+import { ScoreActionUnlocks } from '@/data/score_action_unlocks'
+import { ScoreUnlocks } from '@/data/score_unlocks'
+import { Scores } from '@/data/scores'
+import { Upgrades } from '@/data/upgrades'
+import type { Score } from '@/types/score'
+import type { ScoreAction } from '@/types/score_action'
+import type { ScoreActionUnlock } from '@/types/score_action_unlock'
+import type { ScoreUnlock } from '@/types/score_unlock'
+import type { Upgrade } from '@/types/upgrade'
 import { defineStore } from 'pinia'
 
 export const useScoreStore = defineStore('score', {
   state: () => ({
-    chars: 0,
-    lines: -1,
-    funcs: -1,
-    classes: -1,
-    packs: -1,
-    prods: -1,
-    money: 1000,
-    cred: 0
+    scores: Scores,
+    unlockedScores: [1, 3] as number[],
+    unlockedScoreActions: [1] as number[],
+    ownedUpgrades: [] as number[]
   }),
+  getters: {
+    displayScores: (state) => {
+      return state.scores.filter((item) => state.unlockedScores.indexOf(item.id) > -1)
+    },
+    displayScoreActions: (state) => {
+      return ScoreActions.filter((item) => state.unlockedScoreActions.indexOf(item.id) > -1)
+    },
+    displayUpgrades: (state) => {
+      return Upgrades.filter((item) => state.ownedUpgrades.indexOf(item.id) === -1)
+    }
+  },
   actions: {
-    addChars(add: number) {
-      this.chars += add
+    doScoreAction(id: number): boolean {
+      const scoreAction = ScoreActions.find((item: ScoreAction) => item.id === id)
+      if (!scoreAction) {
+        return false
+      }
+      const scoreIndex = this.scores.findIndex((item: Score) => item.id === scoreAction?.scoreId)
+      const tempScore = scoreAction.action(this.scores[scoreIndex].value)
+      this.scores[scoreIndex].value = tempScore
+      return true
     },
-    addLines(add: number) {
-      this.lines += add
+    unlockScore(id: number): boolean {
+      const score = Scores.find((item: Score) => item.id === id)
+      if (!score) {
+        return false
+      }
+      this.unlockedScores.push(score.id)
+      return true
     },
-    addFuncs(add: number) {
-      this.funcs += add
+    unlockScoreAction(id: number): boolean {
+      const scoreAction = ScoreActions.find((item: ScoreAction) => item.id === id)
+      if (!scoreAction) {
+        return false
+      }
+      this.unlockedScoreActions.push(scoreAction.id)
+      return true
     },
-    addClasses(add: number) {
-      this.classes += add
-    },
-    addPacks(add: number) {
-      this.packs += add
-    },
-    addProds(add: number) {
-      this.prods += add
-    },
-    addMoney(add: number) {
-      this.money += add
-    },
-    addCred(add: number) {
-      this.cred += add
-    },
-    unlockLines() {
-      this.lines = 0
-    },
-    unlockFuncs() {
-      this.funcs = 0
-    },
-    unlockClasses() {
-      this.classes = 0
-    },
-    unlockPacks() {
-      this.packs = 0
-    },
-    unlockProds() {
-      this.prods = 0
+    purchaseUpgrade(id: number): boolean {
+      const upgrade = Upgrades.find((item: Upgrade) => item.id === id)
+      // If no upgrade found, return "error"
+      if (!upgrade) {
+        return false
+      }
+      // TODO: check if enough money
+      this.ownedUpgrades.push(upgrade.id)
+      // Unlock any score actions that were unlocked
+      const unlockedScoreActions = ScoreActionUnlocks.filter(
+        (item: ScoreActionUnlock) => item.upgradeId === id
+      )
+      unlockedScoreActions.forEach((unlock) => {
+        this.unlockScoreAction(unlock.scoreActionId)
+      })
+      // Unlock any scores that were unlocked
+      const unlockedScores = ScoreUnlocks.filter((item: ScoreUnlock) => item.upgradeId === id)
+      unlockedScores.forEach((unlock) => {
+        this.unlockScore(unlock.scoreId)
+      })
+      return true
     }
   }
 })
