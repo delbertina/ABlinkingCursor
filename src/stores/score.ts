@@ -25,7 +25,14 @@ export const useScoreStore = defineStore('score', {
       return ScoreActions.filter((item) => state.unlockedScoreActions.indexOf(item.id) > -1)
     },
     displayUpgrades: (state) => {
-      return Upgrades.filter((item) => state.ownedUpgrades.indexOf(item.id) === -1)
+      const unlockedScoreIds = ScoreActions.filter(
+        (item) => state.unlockedScoreActions.indexOf(item.id) > -1
+      ).map((item) => item.scoreId)
+      return Upgrades.filter(
+        (item) =>
+          state.ownedUpgrades.indexOf(item.id) === -1 &&
+          unlockedScoreIds.indexOf(item.priceScoreId) !== -1
+      )
     }
   },
   actions: {
@@ -61,7 +68,13 @@ export const useScoreStore = defineStore('score', {
       if (!upgrade) {
         return false
       }
-      // TODO: check if enough money
+      // check if enough money
+      const scoreIndex = this.scores.findIndex((item) => item.id === upgrade.priceScoreId)
+      if (this.scores[scoreIndex].value < upgrade.price) {
+        return false
+      }
+      // do the transaction
+      this.scores[scoreIndex].value -= upgrade.price
       this.ownedUpgrades.push(upgrade.id)
       // Unlock any score actions that were unlocked
       const unlockedScoreActions = ScoreActionUnlocks.filter(
