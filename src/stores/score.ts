@@ -15,7 +15,8 @@ export const useScoreStore = defineStore('score', {
     scores: Scores,
     unlockedScores: [1, 3] as number[],
     unlockedScoreActions: [1] as number[],
-    ownedUpgrades: [] as number[]
+    ownedUpgrades: [] as number[],
+    history: ['test 1', 'test 2'] as string[]
   }),
   getters: {
     displayScores: (state) => {

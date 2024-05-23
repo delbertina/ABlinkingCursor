@@ -40,7 +40,6 @@ const clickUpgradeCard = (index: number) => {
       </div>
       <div class="col">
         <h1>Purchase Upgrades</h1>
-        <!-- <div v-if="score.chars >= 30"> -->
         <div v-for="upgrade in score_store.displayUpgrades" :key="upgrade.id">
           <UpgradeCard
             :card-title="upgrade.name"
@@ -50,9 +49,13 @@ const clickUpgradeCard = (index: number) => {
             @on-click="() => clickUpgradeCard(upgrade.id)"
           />
         </div>
-        <!-- </div> -->
       </div>
-      <div class="col"><h1>Event History</h1></div>
+      <div class="col">
+        <h1>Event History</h1>
+        <div v-for="(tale, index) in score_store.history" :key="index">
+          {{ tale }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
