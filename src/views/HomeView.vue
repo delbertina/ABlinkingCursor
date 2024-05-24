@@ -52,6 +52,7 @@ const clickUpgradeCard = (index: number) => {
       </div>
       <div class="col">
         <h1>Event History</h1>
+        <!-- TODO: Make this content scroll and fade away -->
         <div v-for="(tale, index) in score_store.history" :key="index">
           {{ tale }}
         </div>
