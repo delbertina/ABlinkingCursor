@@ -4,4 +4,5 @@ export interface Upgrade {
   price: number
   priceScoreId: number
   description: string
+  historyEntry: string
 }

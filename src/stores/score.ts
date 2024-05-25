@@ -52,7 +52,6 @@ export const useScoreStore = defineStore('score', {
       if (!score) {
         return false
       }
-      this.history.push('New Score Unlocked: ' + score.name)
       this.unlockedScores.push(score.id)
       return true
     },
@@ -61,7 +60,6 @@ export const useScoreStore = defineStore('score', {
       if (!scoreAction) {
         return false
       }
-      this.history.push('New Action Unlocked: ' + scoreAction.name)
       this.unlockedScoreActions.push(scoreAction.id)
       return true
     },
@@ -78,7 +76,7 @@ export const useScoreStore = defineStore('score', {
       }
       // do the transaction
       this.scores[scoreIndex].value -= upgrade.price
-      this.history.push('New Upgrade Unlocked: ' + upgrade.name)
+      this.history.push(upgrade.historyEntry)
       this.ownedUpgrades.push(upgrade.id)
       // Unlock any score actions that were unlocked
       const unlockedScoreActions = ScoreActionUnlocks.filter(
