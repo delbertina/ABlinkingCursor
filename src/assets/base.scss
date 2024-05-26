@@ -85,3 +85,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.home-event-history {
+  height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+}
+
+.home-event-history-content-wrapper {
+  overflow: auto;
+}

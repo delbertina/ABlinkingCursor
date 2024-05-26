@@ -50,11 +50,13 @@ const clickUpgradeCard = (index: number) => {
           />
         </div>
       </div>
-      <div class="col">
+      <div class="col home-event-history">
         <h1>Event History</h1>
-        <!-- TODO: Make this content scroll and fade away -->
-        <div v-for="(tale, index) in score_store.history" :key="index">
-          {{ tale }}
+        <!-- TODO: Make this content scroll have fade -->
+        <div class="home-event-history-content-wrapper">
+          <div class="home-event-history-content">
+            <div v-for="(tale, index) in score_store.history" :key="index" v-html="tale"></div>
+          </div>
         </div>
       </div>
     </div>
