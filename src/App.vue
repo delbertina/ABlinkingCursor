@@ -3,10 +3,10 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">A Blinking Cursor</a>
+      <a class="navbar-brand" href="/#">A Blinking Cursor</a>
       <ul class="navbar-nav d-flex">
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="settings/#">
             <i class="bi-gear-fill" />
           </a>
         </li>
