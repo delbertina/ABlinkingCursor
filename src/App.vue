@@ -6,7 +6,7 @@
       <a class="navbar-brand" href="/#">A Blinking Cursor</a>
       <ul class="navbar-nav d-flex">
         <li class="nav-item">
-          <a class="nav-link" href="settings/#">
+          <a class="nav-link" href="/settings/#">
             <i class="bi-gear-fill" />
           </a>
         </li>
