@@ -3,12 +3,14 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/#">A Blinking Cursor</a>
+      <RouterLink class="nav-brand" to="/">
+        <h3>A Blinking Cursor</h3>
+      </RouterLink>
       <ul class="navbar-nav d-flex">
         <li class="nav-item">
-          <a class="nav-link" href="/settings/#">
+          <RouterLink class="nav-link" to="/settings">
             <i class="bi-gear-fill" />
-          </a>
+          </RouterLink>
         </li>
       </ul>
     </div>
