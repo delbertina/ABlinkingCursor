@@ -5,6 +5,9 @@ Try it out >>> https://delbertina.github.io/ABlinkingCursor/
 
 Originally created in June 2019 to get up to speed in Vue before joining a startup.
 
+# Main Page
+![so63wM8](https://github.com/delbertina/ABlinkingCursor/assets/6349928/18592fdf-0e8b-4ab3-836e-616a54a88a2b)
+
 
 ## Recommended IDE Setup
 
